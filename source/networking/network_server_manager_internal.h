@@ -36,6 +36,9 @@ word network_game_server_get_state(
 	short *substate);
 boolean network_game_server_game_is_open(
 	struct network_game_server *server);
+/* port: whether the machines are loading the game (its start sent) */
+boolean network_game_server_game_is_loading(
+	struct network_game_server *server);
 /* joining a distributed game in progress (network_server_manager.c) */
 boolean network_game_server_accepts_late_joins(
 	struct network_game_server *server);
@@ -118,6 +121,11 @@ struct network_game_server_client_machine *network_game_server_get_client_machin
 	struct network_game_server *server,
 	long index);
 struct network_game_server_client_machine *network_game_server_get_client_machine_at_address(
+	struct network_game_server *server,
+	unsigned long address);
+/* port: the machine at an address, preferring one that isn't the host's own
+(a second game on the host's computer shares its address) */
+struct network_game_server_client_machine *network_game_server_get_remote_client_machine_at_address(
 	struct network_game_server *server,
 	unsigned long address);
 struct network_game *network_game_server_get_game(
